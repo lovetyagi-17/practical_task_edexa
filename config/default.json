@@ -1,0 +1,13 @@
+{
+  "PORT": 4001,
+  "BASE_URL": "http://localhost:4001/api",
+  "DB_URL": "mongodb://localhost:27017/EDEXA",
+  "JWT_OPTIONS": {
+      "SECRET_KEY": "Lr-x9g5-Rq-yB6NNcTKlVQ.ZvRscU8PgFGNIRJhg16i1y6CpyxaiMeGzeQzcFoxaCs",
+      "EXPIRES_IN": "1d"
+  },
+  "USER": "himanshurawat155@gmail.com",
+  "PASS": "Rawat@8171",
+  "SERVICE": "gmail" ,
+  "SUPPORT_EMAIL" : "himanshurawat155@gmail.com"
+}
