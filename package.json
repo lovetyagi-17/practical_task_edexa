@@ -1,0 +1,34 @@
+{
+  "name": "edexa_assignment",
+  "version": "1.0.0",
+  "description": "practical task",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lovetyagi-17/practical_task_edexa.git"
+  },
+  "author": "love tyagi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lovetyagi-17/practical_task_edexa/issues"
+  },
+  "homepage": "https://github.com/lovetyagi-17/practical_task_edexa#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.1.1",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "https": "^1.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.12",
+    "nodemailer": "^6.7.0",
+    "nodemon": "^2.0.14",
+    "uuid": "^8.3.2"
+  }
+}
