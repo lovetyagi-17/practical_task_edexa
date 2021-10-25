@@ -5,19 +5,19 @@ const Schema = mongoose.Schema;
 const UserModel = new Schema({
   name: {
     type: String,
-    default: null
+    required: true
   },
   email: {
     type: String,
-    default: null
+    required: true
   },
   password: {
     type: String,
-    default: null
+    required: true
   },
   image: {
     type: String,
-    default: null
+    required: true
   },
   authToken: {
     type: String,
