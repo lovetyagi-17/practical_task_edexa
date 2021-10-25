@@ -5,13 +5,13 @@ const MODELS = require("../../models/index");
 const crypto = require('crypto');
 const loadsh = require('lodash');
 const uuid = require('uuid');
+const fs = require('fs');
 const mailer = require('../../constants/mailer/mailer');
+
 
 module.exports = {
   signIn: signIn,
   signUp: signUp,
-  getImage: getImage,
-
 }
 
 function signUp(req, res, next) {
@@ -33,7 +33,6 @@ function signUp(req, res, next) {
       const file = req.files.image;
       const randomName = uuid.v4();
       const extension = file.name.substr(file.name.lastIndexOf('.'));
-      file.mv('./uploads/' + randomName + extension);
 
       // Add product
       // console.log("req.ody:   ", req.body);
@@ -42,10 +41,11 @@ function signUp(req, res, next) {
       userDetails.name = newUser['name'];
       userDetails.email = newUser['email'];
       userDetails.password = newUser['password'];
-      userDetails.image = randomName + extension;
+      userDetails.image =  randomName + extension;
       userDetails.password = await universal.UTILS.hashUsingBcrypt(userDetails.password);
       req.body.salt = crypto.randomBytes(16).toString('hex');
       const addedUser = await MODELS.user(userDetails).save();
+      file.mv('./public/user/' + addedUser._id + extension);
       // console.log("addedUser:   ", addedUser);
       let template = `You have successfully registered with us.<br/>
       <p>User-Name : ${addedUser.name}</p>
@@ -94,7 +94,14 @@ function signIn(req, res, next) {
           universal.RESPONSE(universal.CODES.UN_AUTHORIZED, universal.MESSAGES.INVALID_LOGIN_CREDENTIALS, null)
         );
       let token = await universal.UTILS.jwtSign({ _id: user._id });
-      let userData = await MODELS.user.findByIdAndUpdate(user._id, { authToken: token }, { new: true });
+      let userData = await MODELS.user.findOne(user._id).lean().exec();
+      if(userData.isActive === true) {
+        userData = await MODELS.user.findByIdAndUpdate(user._id, {isActive: false }, { new: true });
+        return await res.json(
+          universal.RESPONSE(universal.CODES.OK, universal.MESSAGES.LOGOUT_SUCESS, {})
+        );
+      }
+      userData = await MODELS.user.findByIdAndUpdate(user._id, { authToken: token, isActive: true }, { new: true });
       userData.authToken = token;
       console.log(`User LoggedIn Successfully!`);
       return await res.json(
@@ -105,15 +112,4 @@ function signIn(req, res, next) {
     }
   }
   signIn().then(function () { });
-}
-
-function getImage(req, res, next) {
-  async function getImage() {
-    try {
-      console.log("image access!");
-    } catch (err) {
-      next(err);
-    }
-  }
-  getImage().then(function () { });
 }

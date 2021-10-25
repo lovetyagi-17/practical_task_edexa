@@ -18,7 +18,7 @@ function tipCalculate(req, res, next) {
         let tipAmount = (hotel_data.totalAmount * hotel_data.tipPercentage) / 100;
         let updatedData = await MODELS.hotel.findByIdAndUpdate(hotel_data._id,
           {
-            $set : { tip: tipAmount }
+            $set : { tip: tipAmount, counter : 2 }
           },
           { new: true });
         if(updatedData) {
