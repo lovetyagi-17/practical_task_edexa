@@ -10,7 +10,7 @@ module.exports = {
   INVALID_LOGIN_CREDENTIALS: "INVALID_LOGIN_CREDENTIALS",
   FETCH_SUCCESS: "Fetched Successfully",
   REQUIRED_FIELDS_MISSING: "Required Fields Missing",
-  USER_ALREADY_EXIST: "User Already Exist. Please try with another user",
+  USER_ALREADY_EXIST: "Already Exist. Please try with another Details!",
   USER_DOEST_NOT_EXIST: "User Does not exist. Please register",
   INTERNAL_ERROR: "Internal Error",
   NOTIFICATION_SEND: "Notification Sent",
