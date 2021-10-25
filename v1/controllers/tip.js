@@ -87,13 +87,13 @@ function getTipData(req, res, next) {
           universal.RESPONSE(universal.CODES.NO_CONTENT, universal.MESSAGES.NO_DATA_FOUND, null)
         );
       }
-      // let allHotels = await MODELS.hotel.find({
-      //   startDate: {
-      //     $gte: startDate,
-      //     $lt: endDate
-      //   }
-      // }).lean().exec();
-      let allHotels = await MODELS.hotel.find().lean().exec();
+      let allHotels = await MODELS.hotel.find({
+        startDate: {
+          $gte: startDate,
+          $lt: endDate
+        }
+      }).lean().exec();
+      // let allHotels = await MODELS.hotel.find().lean().exec();
       // console.log(allHotels);
         if(allHotels) {
           console.log(`All hotels List!`);
