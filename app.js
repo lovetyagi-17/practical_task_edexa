@@ -1,12 +1,15 @@
 "use strict";
 const config = require('./config/default.json');
 const express = require('express');
+const MODELS = require("./models/index");
+const universal = require('./constants/index')
 const mongoose = require('mongoose');
 const http = require("http");
 const bodyParser = require("body-parser");
 const fileUpload = require('express-fileupload');
 const app = express();
 const cors = require("cors");
+const fs = require('fs');
 app.use(cors());
 app.options('*', cors());
 
@@ -19,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use('/uploads',express.static('uploads'))
+app.use('/public/user/',express.static('user'))
 
 
 // All api requests
@@ -62,6 +65,26 @@ app.use('/test', async(req, res, next) => {
     data: {}
   })
 });
+
+/* Image API */
+app.get('/:name', async(req, res, next) => {
+  try {
+    const userId = req.params.name;
+    let imageData = await MODELS.user.find(MODELS.ObjectId(userId)).lean().exec();
+    if(imageData) {
+      let imageUrl = `http://localhost:${config.PORT}/public/user/${userId}.jpg`;
+      console.log(`public/user/${userId}.jpg`);
+      return await res.json(
+        universal.RESPONSE(universal.CODES.OK, universal.MESSAGES.FETCH_SUCCESS, imageUrl)
+      )
+    }
+    return await res.json(
+      universal.RESPONSE(universal.CODES.BAD_REQUEST, universal.MESSAGES.NO_DATA_FOUND, null)
+    )
+  } catch(err) {
+    next(err);
+  }
+})
 
 /* API ROUTES */
 const route = require('./route');
