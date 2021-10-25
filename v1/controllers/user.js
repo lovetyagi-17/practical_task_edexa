@@ -71,9 +71,10 @@ function signIn(req, res, next) {
   async function signIn() {
     try {
       let user = {};
-      if (req.body.email) {
+      let email = req.body.email.toLowerCase().trim();
+      if (email) {
         user = await MODELS.user
-          .findOne({ email: req.body.email, isDeleted: false })
+          .findOne({ email: email, isDeleted: false })
           .lean()
           .exec();
       } else {
