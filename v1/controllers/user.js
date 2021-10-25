@@ -20,8 +20,10 @@ function signUp(req, res, next) {
       if (!req.files) {
         throw "You need to upload image !"
       }
+      let email = req.body.email.toLowerCase().trim();
+      console.log(email);
       let user = await MODELS.user
-        .findOne({ email: req.body.email, isDeleted: false })
+        .findOne({ email: email, isDeleted: false })
         .select("email")
         .lean()
         .exec();
@@ -38,8 +40,8 @@ function signUp(req, res, next) {
       // console.log("req.ody:   ", req.body);
       var newUser = req.body;
       const userDetails = new MODELS.user();
-      userDetails.name = newUser['name'];
-      userDetails.email = newUser['email'];
+      userDetails.name = newUser['name'] ;
+      userDetails.email = email;
       userDetails.password = newUser['password'];
       userDetails.image =  randomName + extension;
       userDetails.password = await universal.UTILS.hashUsingBcrypt(userDetails.password);
@@ -57,7 +59,9 @@ function signUp(req, res, next) {
         universal.RESPONSE(universal.CODES.CREATED, universal.MESSAGES.ADDED_SUCCESS, { name: addedUser.name, email: addedUser.email })
       );
     } catch (err) {
-      next(err);
+      return await res.json(
+        universal.RESPONSE(universal.CODES.BAD_REQUEST, err)
+      );
     }
   }
   signUp().then(function () { });
