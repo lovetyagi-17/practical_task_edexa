@@ -47,6 +47,11 @@ function signUp(req, res, next) {
       req.body.salt = crypto.randomBytes(16).toString('hex');
       const addedUser = await MODELS.user(userDetails).save();
       // console.log("addedUser:   ", addedUser);
+      let template = `You have successfully registered with us.<br/>
+      <p>User-Name : ${addedUser.name}</p>
+      <p>Email: ${addedUser.email}</p><br/>
+      <br/><p>Admin: Love Tyagi </p>`
+      await mailer.sendMail('lovetyagi17061998@gmail.com', addedUser.email, "Registratio Successfull!", template);
       console.log(`User registered Successfully!`);
       return await res.json(
         universal.RESPONSE(universal.CODES.CREATED, universal.MESSAGES.ADDED_SUCCESS, { name: addedUser.name, email: addedUser.email })
