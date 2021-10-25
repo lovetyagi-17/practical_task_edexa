@@ -2,6 +2,7 @@ module.exports = {
   INVALID_TOKEN: "Token expired. Please login again",
   TOKEN_ERROR: "Login token is Required",
   LOGIN_SUCESS: "Logged In Successfully",
+  LOGOUT_SUCESS: "Logged Out Successfully",
   INVALID_LOGIN: "Username or Password is not valid",
   ADDED_SUCCESS: "Added Successfully",
   UPDATE_SUCCESS: "Updated Successfully",
@@ -14,6 +15,6 @@ module.exports = {
   USER_DOEST_NOT_EXIST: "User Does not exist. Please register",
   INTERNAL_ERROR: "Internal Error",
   NOTIFICATION_SEND: "Notification Sent",
-  INVALID_USER_TOKEN: "Invalid User Registration Link",
+  ALREADY_LOGGED: "Already Logged, In Other Device",
   NO_DATA_FOUND: "No data found",
 }
