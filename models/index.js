@@ -1,5 +1,5 @@
 module.exports = {
   user: require('./user'),
-  tip: require('./tip'),
+  hotel: require('./hotel'),
   ObjectId: require('mongoose').Types.ObjectId
 }
